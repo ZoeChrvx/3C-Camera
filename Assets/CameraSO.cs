@@ -7,7 +7,6 @@ public class CameraSO : ScriptableObject
 {
     [Header("General")]
     public Vector3 offsetPosition;
-    public GameObject pivotPoint;
     public float rotationSpeed, mouvementSpeed;
     [Space]
 
@@ -20,6 +19,7 @@ public class CameraSO : ScriptableObject
 
     [Header("Collision and Perspective")]
     public bool checkCollision;
+    [Range(0, 50)] //slider
     public float clipping;
-    public bool isPerspective;
+    public bool isOrthographic;
 }

@@ -1,0 +1,74 @@
+{
+    "name": "Player",
+    "maps": [
+        {
+            "name": "Camera",
+            "id": "2083d3b1-b9b6-4284-af64-ad7f9ea50b7e",
+            "actions": [
+                {
+                    "name": "FPS",
+                    "type": "Button",
+                    "id": "7695ab48-152d-4cf9-b4f4-703cc09baa00",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "TPS",
+                    "type": "Button",
+                    "id": "45dbb9ea-8a13-4407-9c0c-133d1e5f43d1",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Scroller",
+                    "type": "Button",
+                    "id": "8e79f3e5-eb21-4764-89be-01c1b70662e4",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "f8f1e561-142a-4731-b1ad-b9163af14183",
+                    "path": "<Keyboard>/f",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "FPS",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "cf2fa1c3-224f-4406-b44e-412b369f7d8e",
+                    "path": "<Keyboard>/t",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "TPS",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "7ae44270-5e88-4025-9bd7-c9203fa71e01",
+                    "path": "<Keyboard>/g",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Scroller",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}
