@@ -7,19 +7,23 @@ public class CameraSO : ScriptableObject
 {
     [Header("General")]
     public Vector3 offsetPosition;
+    public Vector3 offsetRotation;
     public float rotationSpeed, mouvementSpeed;
     [Space]
 
-    [Header("Fov and Zoom")]
+    [Header("Fov and Clipping")]
     [Range(20, 180)] //slider
     public float fov;
-    public float fovZoom;
-    public Vector3 positionZoom;
+    [Range(0, 10)] //slider
+    public float clipping;
     [Space]
 
     [Header("Collision and Perspective")]
     public bool checkCollision;
-    [Range(0, 50)] //slider
-    public float clipping;
     public bool isOrthographic;
+
+    [Header("Zoom")]
+    [Range(0,60)] //slider
+    public float fovZoom;
+    public Vector3 positionZoom;
 }

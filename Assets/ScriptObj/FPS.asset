@@ -10,15 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a855f493d082ea143961e676cb02235f, type: 3}
-  m_Name: Scroller
+  m_Name: FPS
   m_EditorClassIdentifier: 
-  offsetPosition: {x: 0, y: 0, z: 0}
-  pivotPoint: {fileID: 0}
-  rotationSpeed: 0
-  mouvementSpeed: 0
-  fov: 0
-  fovZoom: 0
-  positionZoom: {x: 0, y: 0, z: 0}
+  offsetPosition: {x: 0, y: 1.5, z: 0}
+  rotationSpeed: 5
+  mouvementSpeed: 5
+  fov: 60
+  clipping: 0.5
   checkCollision: 0
-  clipping: 0
-  isPerspective: 0
+  isOrthographic: 0
+  fovZoom: 1
+  positionZoom: {x: 0, y: 0, z: 0}

@@ -11,6 +11,7 @@ public enum CameraStatus
 }
 public class CameraSettings : MonoBehaviour
 {
+    public Camera mainCamera;
     public CameraStatus cameraStatus;
     private CameraSO cameraActive;
 
@@ -20,9 +21,16 @@ public class CameraSettings : MonoBehaviour
     public CameraSO cameraScroller;
 
     [Header("Parameters")]
-    public float rotationSpeed;
-    public float mouvementSpeed;
+    [HideInInspector]public float rotationSpeed;
+    private float mouvementSpeed;
     public GameObject collision;
+
+    public static CameraSettings instance;
+
+    public void Awake()
+    {
+        instance = this;
+    }
 
     public void ChangeCameraToFPS(InputAction.CallbackContext context)
     {
@@ -60,12 +68,12 @@ public class CameraSettings : MonoBehaviour
 
             case CameraStatus.TPS:
                 cameraActive = cameraTPS;
-
+                ChangeValue();
                 break;
 
             case CameraStatus: 
                 cameraActive = cameraScroller;
-
+                ChangeValue();
                 break;
 
         }
@@ -74,21 +82,22 @@ public class CameraSettings : MonoBehaviour
 
     public void ChangeValue()
     {
-        Camera.main.transform.position += cameraActive.offsetPosition;
+        mainCamera.transform.position = cameraActive.offsetPosition;
+        mainCamera.transform.rotation = Quaternion.Euler(cameraActive.offsetRotation);
         rotationSpeed = cameraActive.rotationSpeed;
         mouvementSpeed = cameraActive.mouvementSpeed;
 
-        Camera.main.fieldOfView = cameraActive.fov;
+        mainCamera.fieldOfView = cameraActive.fov;
 
-        Camera.main.nearClipPlane = cameraActive.clipping;
+        mainCamera.nearClipPlane = cameraActive.clipping;
 
         if(cameraActive.isOrthographic)
         {
-            Camera.main.orthographic = true;
+            mainCamera.orthographic = true;
         }
         else
         {
-            Camera.main.orthographic = false;
+            mainCamera.orthographic = false;
         }
 
         if(cameraActive.checkCollision)
@@ -103,16 +112,16 @@ public class CameraSettings : MonoBehaviour
     
     public void ZoomIn(InputAction.CallbackContext context)
     {
-        Vector3 previousPos = Camera.main.transform.position;
+        Vector3 previousPos = mainCamera.transform.position;
         if (context.started)
         {
-            Camera.main.fieldOfView = cameraActive.fovZoom;
-            Camera.main.transform.position = cameraActive.positionZoom;
+            mainCamera.fieldOfView = cameraActive.fovZoom;
+            mainCamera.transform.position = cameraActive.positionZoom;
         }
         else if (context.canceled)
         {
-            Camera.main.fieldOfView = cameraActive.fov;
-            Camera.main.transform.position = previousPos;
+            mainCamera.fieldOfView = cameraActive.fov;
+            mainCamera.transform.position = previousPos;
         }
     }
 }
