@@ -49,6 +49,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
+                },
+                {
+                    "name": "Move",
+                    "type": "Value",
+                    "id": "961ddf58-70dd-4244-b3cd-366e33fcebc1",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
                 }
             ],
             "bindings": [
@@ -106,27 +115,10 @@
                     "action": "Mouse",
                     "isComposite": false,
                     "isPartOfComposite": false
-                }
-            ]
-        },
-        {
-            "name": "Player",
-            "id": "7852e735-b87b-4cbd-bed9-dc5c287511f6",
-            "actions": [
-                {
-                    "name": "Move",
-                    "type": "Value",
-                    "id": "520d10c2-ae26-45b8-b7ca-ec2e958768ab",
-                    "expectedControlType": "Vector2",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": true
-                }
-            ],
-            "bindings": [
+                },
                 {
                     "name": "",
-                    "id": "e5921d9d-2c4f-4118-b172-7bd9f8d04faa",
+                    "id": "b193424c-1c44-4d38-b844-56fa7bc40835",
                     "path": "<Gamepad>/leftStick",
                     "interactions": "",
                     "processors": "",
@@ -137,7 +129,7 @@
                 },
                 {
                     "name": "WASD",
-                    "id": "9bf142e2-3090-4a24-af5d-82e6d2473df1",
+                    "id": "adc106d1-aa08-41f4-9a1f-8069b5370341",
                     "path": "2DVector",
                     "interactions": "",
                     "processors": "",
@@ -148,7 +140,7 @@
                 },
                 {
                     "name": "up",
-                    "id": "6ef16796-7b94-4221-82e3-07ca4fb2aa3d",
+                    "id": "0c22c74f-f33b-45ca-9d71-e4192532b518",
                     "path": "<Keyboard>/w",
                     "interactions": "",
                     "processors": "",
@@ -159,7 +151,7 @@
                 },
                 {
                     "name": "down",
-                    "id": "8a53c2ef-50a8-4da1-a9d0-a1b7ee7e0acb",
+                    "id": "0af64f1e-5bc8-4721-afa8-8a33d9a5eafe",
                     "path": "<Keyboard>/s",
                     "interactions": "",
                     "processors": "",
@@ -170,7 +162,7 @@
                 },
                 {
                     "name": "left",
-                    "id": "11122310-8d91-4f5c-a08f-6976dc95ed99",
+                    "id": "2533d477-c69c-484b-af0b-1fec92c8fc69",
                     "path": "<Keyboard>/a",
                     "interactions": "",
                     "processors": "",
@@ -181,7 +173,7 @@
                 },
                 {
                     "name": "right",
-                    "id": "59413302-5352-48d0-87fc-20455145561c",
+                    "id": "50228782-0bb8-4db8-81ec-effd91063d88",
                     "path": "<Keyboard>/d",
                     "interactions": "",
                     "processors": "",
@@ -191,6 +183,12 @@
                     "isPartOfComposite": true
                 }
             ]
+        },
+        {
+            "name": "Player",
+            "id": "7852e735-b87b-4cbd-bed9-dc5c287511f6",
+            "actions": [],
+            "bindings": []
         }
     ],
     "controlSchemes": []

@@ -4,15 +4,12 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-
-public enum CameraStatus
-{
-    FPS, TPS, Scroller
-}
 public class CameraSettings : MonoBehaviour
 {
+    public static CameraSettings instance;
+
+
     public Camera mainCamera;
-    public CameraStatus cameraStatus;
     private CameraSO cameraActive;
 
     [Header("Scriptable Object : Camera")]
@@ -22,68 +19,55 @@ public class CameraSettings : MonoBehaviour
 
     [Header("Parameters")]
     [HideInInspector]public float rotationSpeed;
+    [HideInInspector] public bool is2D;
     private float mouvementSpeed;
     public GameObject collision;
-
-    public static CameraSettings instance;
+    bool isZoom = false;
 
     public void Awake()
     {
         instance = this;
     }
+    public void Start()
+    {
+        cameraActive = cameraFPS;
+        ChangeValue();
+    }
 
     public void ChangeCameraToFPS(InputAction.CallbackContext context)
     {
-        if (context.performed)
+        if (context.performed && !isZoom)
         {
-            cameraStatus = CameraStatus.FPS;
+            cameraActive = cameraFPS;
+            ChangeValue();
         }
+        else { return; }
     }
 
     public void ChangeCameraToTPS(InputAction.CallbackContext context)
     {
-        if (context.performed)
+        if (context.performed && !isZoom)
         {
-            cameraStatus = CameraStatus.TPS;
+            cameraActive = cameraTPS;
+            ChangeValue();
         }
+        else { return; }
     }
 
     public void ChangeCameraToScroller(InputAction.CallbackContext context)
     {
-        if (context.performed)
+        if (context.performed && !isZoom)
         {
-            cameraStatus = CameraStatus.Scroller;
+            cameraActive = cameraScroller;
+            ChangeValue();
         }
+        else { return; }
     }
-
-
-    private void Update()
-    {
-        switch(cameraStatus)
-        {
-            case CameraStatus.FPS:
-                cameraActive = cameraFPS;
-                ChangeValue();
-                break;
-
-            case CameraStatus.TPS:
-                cameraActive = cameraTPS;
-                ChangeValue();
-                break;
-
-            case CameraStatus: 
-                cameraActive = cameraScroller;
-                ChangeValue();
-                break;
-
-        }
-    }
-
 
     public void ChangeValue()
     {
-        mainCamera.transform.position = cameraActive.offsetPosition;
-        mainCamera.transform.rotation = Quaternion.Euler(cameraActive.offsetRotation);
+        mainCamera.transform.localPosition = cameraActive.offsetPosition;
+        mainCamera.transform.localRotation = Quaternion.Euler(cameraActive.offsetRotation);
         rotationSpeed = cameraActive.rotationSpeed;
         mouvementSpeed = cameraActive.mouvementSpeed;
 
@@ -94,10 +78,12 @@ public class CameraSettings : MonoBehaviour
         if(cameraActive.isOrthographic)
         {
             mainCamera.orthographic = true;
+            is2D = true;
         }
         else
         {
             mainCamera.orthographic = false;
+            is2D = false;
         }
 
         if(cameraActive.checkCollision)
@@ -112,16 +98,17 @@ public class CameraSettings : MonoBehaviour
     
     public void ZoomIn(InputAction.CallbackContext context)
     {
-        Vector3 previousPos = mainCamera.transform.position;
-        if (context.started)
+        if (context.performed && !isZoom)
         {
             mainCamera.fieldOfView = cameraActive.fovZoom;
-            mainCamera.transform.position = cameraActive.positionZoom;
+            mainCamera.transform.localPosition = cameraActive.positionZoom;
+            isZoom = true;
         }
-        else if (context.canceled)
+        else if (context.performed && isZoom)
         {
             mainCamera.fieldOfView = cameraActive.fov;
-            mainCamera.transform.position = previousPos;
+            mainCamera.transform.localPosition =  cameraActive.offsetPosition;
+            isZoom = false;
         }
     }
 }
