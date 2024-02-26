@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TreeEditor;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -16,6 +17,7 @@ public class CameraSettings : MonoBehaviour
     public CameraSO cameraFPS;
     public CameraSO cameraTPS;
     public CameraSO cameraScroller;
+    bool isFPS, isTPS, isScroller;
 
     [Header("Parameters")]
     [HideInInspector]public float rotationSpeed;
@@ -24,21 +26,64 @@ public class CameraSettings : MonoBehaviour
     public GameObject collision;
     bool isZoom = false;
 
+    [Header("Mouse Parameters")]
+    public float sensitivity = 15f;
+    Vector2 mousePos;
+    public GameObject mover;
+    public Vector3 deltaMove;
+    public float speed=1;
+
+    public float pLerp = 0.02f;
+    public float rLerp = 0.01f;
+
+
     public void Awake()
     {
         instance = this;
     }
     public void Start()
-    {
+    {        
         cameraActive = cameraFPS;
         ChangeValue();
     }
+
+    public void Update()
+    {
+        if (isFPS)
+        {
+            Cursor.lockState = CursorLockMode.Locked;
+            mousePos.x += Input.GetAxis("Mouse X") * sensitivity;
+            mousePos.y += Input.GetAxis("Mouse Y") * sensitivity;
+            mover.transform.localRotation = Quaternion.Euler(0, mousePos.x, 0);
+            transform.localRotation = Quaternion.Euler(-mousePos.y, 0, 0);
+
+            deltaMove = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical")) * speed * Time.deltaTime;
+            mover.transform.Translate(deltaMove);
+        }
+        else if(isTPS)
+        {
+            mousePos.x += Input.GetAxis("Mouse X") * sensitivity;
+            mousePos.y += Input.GetAxis("Mouse Y") * sensitivity;
+            mover.transform.localRotation = Quaternion.Euler(0, mousePos.x, 0);
+            transform.localRotation = Quaternion.Euler(-mousePos.y, 0, 0);
+
+            deltaMove = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical")) * speed * Time.deltaTime;
+            mover.transform.Translate(deltaMove);
+
+            transform.position = Vector3.Lerp(transform.position, mover.transform.position, pLerp);
+            transform.rotation = Quaternion.Lerp(transform.rotation,mover.transform.rotation, rLerp);
+        }
+    }
+
 
     public void ChangeCameraToFPS(InputAction.CallbackContext context)
     {
         if (context.performed && !isZoom)
         {
             cameraActive = cameraFPS;
+            isFPS = true;
+            isTPS = false;
+            isScroller = false;
             ChangeValue();
         }
         else { return; }
@@ -49,6 +94,9 @@ public class CameraSettings : MonoBehaviour
         if (context.performed && !isZoom)
         {
             cameraActive = cameraTPS;
+            isFPS = false;
+            isTPS = true;
+            isScroller = false;
             ChangeValue();
         }
         else { return; }
@@ -59,6 +107,9 @@ public class CameraSettings : MonoBehaviour
         if (context.performed && !isZoom)
         {
             cameraActive = cameraScroller;
+            isFPS = false;
+            isTPS = false;
+            isScroller = true;
             ChangeValue();
         }
         else { return; }
