@@ -25,6 +25,7 @@ public class CameraSettings : MonoBehaviour
     private float mouvementSpeed;
     public GameObject collision;
     bool isZoom = false;
+    bool isRunning;
 
     [Header("Mouse Parameters")]
     public float sensitivity = 15f;
@@ -52,29 +53,28 @@ public class CameraSettings : MonoBehaviour
         if (isFPS)
         {
             Cursor.lockState = CursorLockMode.Locked;
-            mousePos.x += Input.GetAxis("Mouse X") * sensitivity;
-            mousePos.y += Input.GetAxis("Mouse Y") * sensitivity;
-            mover.transform.localRotation = Quaternion.Euler(0, mousePos.x, 0);
-            transform.localRotation = Quaternion.Euler(-mousePos.y, 0, 0);
-
-            deltaMove = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical")) * speed * Time.deltaTime;
-            mover.transform.Translate(deltaMove);
+            MouseMouvement();
         }
         else if(isTPS)
         {
-            mousePos.x += Input.GetAxis("Mouse X") * sensitivity;
-            mousePos.y += Input.GetAxis("Mouse Y") * sensitivity;
-            mover.transform.localRotation = Quaternion.Euler(0, mousePos.x, 0);
-            transform.localRotation = Quaternion.Euler(-mousePos.y, 0, 0);
+            MouseMouvement();
 
-            deltaMove = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical")) * speed * Time.deltaTime;
-            mover.transform.Translate(deltaMove);
-
-            transform.position = Vector3.Lerp(transform.position, mover.transform.position, pLerp);
+            //transform.position = Vector3.Lerp(transform.position, mover.transform.position, pLerp);
             transform.rotation = Quaternion.Lerp(transform.rotation,mover.transform.rotation, rLerp);
+            
         }
     }
 
+    public void MouseMouvement()
+    {
+        mousePos.x += Input.GetAxis("Mouse X") * sensitivity;
+        mousePos.y += Input.GetAxis("Mouse Y") * sensitivity;
+        mover.transform.localRotation = Quaternion.Euler(0, mousePos.x, 0);
+        transform.localRotation = Quaternion.Euler(-mousePos.y, 0, 0);
+
+        deltaMove = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical")) * speed * Time.deltaTime;
+        mover.transform.Translate(deltaMove);
+    }
 
     public void ChangeCameraToFPS(InputAction.CallbackContext context)
     {
