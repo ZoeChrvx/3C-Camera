@@ -31,7 +31,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 1, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1, y: 1.4109, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5971299021749152022}
@@ -232,6 +232,10 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 961ddf58-70dd-4244-b3cd-366e33fcebc1
     m_ActionName: Camera/Move[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: dae093a4-228b-4b63-8f40-b404df2ad23f
+    m_ActionName: Camera/Sprint[/Keyboard/shift,/Mouse/backButton]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Camera
@@ -397,9 +401,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mainCamera: {fileID: 2287205438311944893}
-  cameraStatus: 0
+  cameraActive: {fileID: 0}
   cameraFPS: {fileID: 11400000, guid: 2679af053f30e504a99242a80cce3093, type: 2}
   cameraTPS: {fileID: 11400000, guid: 9a3d155b2cdf32440b3790ca65fe124e, type: 2}
   cameraScroller: {fileID: 11400000, guid: 52d31723aa745434486c924352b2dc60, type: 2}
+  isFPS: 0
+  isTPS: 0
+  isScroller: 0
   rotationSpeed: 0
+  is2D: 0
   collision: {fileID: 3673884029434919270}
+  sensitivity: 15
+  mover: {fileID: 0}
+  deltaMove: {x: 0, y: 0, z: 0}
+  speed: 1
+  pLerp: 0.2
+  rLerp: 0.01

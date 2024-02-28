@@ -11,13 +11,13 @@ public class CameraSettings : MonoBehaviour
 
 
     public Camera mainCamera;
-    private CameraSO cameraActive;
+    [HideInInspector] public CameraSO cameraActive;
 
     [Header("Scriptable Object : Camera")]
     public CameraSO cameraFPS;
     public CameraSO cameraTPS;
     public CameraSO cameraScroller;
-    bool isFPS, isTPS, isScroller;
+    public bool isFPS, isTPS, isScroller;
 
     [Header("Parameters")]
     [HideInInspector]public float rotationSpeed;
@@ -45,6 +45,8 @@ public class CameraSettings : MonoBehaviour
     public void Start()
     {        
         cameraActive = cameraFPS;
+        Cursor.lockState = CursorLockMode.Locked;
+        MouseMouvement();
         ChangeValue();
     }
 
